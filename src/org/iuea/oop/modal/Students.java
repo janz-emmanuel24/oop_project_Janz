@@ -2,7 +2,7 @@ package org.iuea.oop.modal;
 
 import javax.swing.JFrame;
 
-public class Students {
+public class Students extends JFrame {
    //students variables
    private String fName;
    private String lName;
