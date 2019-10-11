@@ -1,5 +1,6 @@
 package org.iuea.oop.modal;
 
+import com.sun.glass.events.KeyEvent;
 import com.toedter.calendar.JDateChooser;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -32,6 +33,8 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
+import org.iuea.oop.Main;
+import org.iuea.oop.views.LoginView;
 
 public class Students extends JFrame {
    //Creating instance variables
@@ -39,6 +42,7 @@ public class Students extends JFrame {
    JButton add;
    JButton edit;
    JButton delete;
+   public JMenuItem item5;
    JPanel tablePanel;
    JTable table;
    DefaultTableModel model;
@@ -68,10 +72,17 @@ public class Students extends JFrame {
         //creating menu items for action menu
         
         JMenuItem item1 = new JMenuItem("login As:");
+        item1.setMnemonic(KeyEvent.VK_A);
         JMenuItem item2 = new JMenuItem("Open Records");
+        item2.setMnemonic(KeyEvent.VK_O);
         JMenuItem item3 = new JMenuItem("Save Records");
+        item3.setMnemonic(KeyEvent.VK_S);
         JMenuItem item4 = new JMenuItem("Print Records");
-        JMenuItem item5 = new JMenuItem("Logout");
+        item4.setMnemonic(KeyEvent.VK_P);
+        item5 = new JMenuItem("Logout");
+        item5.setMnemonic(KeyEvent.VK_L);
+        
+        
         //creating menu items for Help
         JMenuItem jitem1 = new JMenuItem("Shortcut Keys");
         JMenuItem jitem2 = new JMenuItem("Records");
@@ -100,13 +111,19 @@ public class Students extends JFrame {
             //adding items onto the students Panel
             studentsPanel.setLayout(null);
             add = new JButton("Add");
+            add.setToolTipText("Click To Enter a Record");
             add.setBackground(Color.green);
+            add.setForeground(Color.white);
             add.setBounds(80, 30, 100, 30);
             edit = new JButton("Edit");
+            edit.setToolTipText("Click To Edit a Record");
             edit.setBackground(Color.orange);
+            edit.setForeground(Color.white);
             edit.setBounds(230, 30, 100, 30);
             delete = new JButton("Delete");
+            delete.setToolTipText("Click To Delete a Record");
             delete.setBackground(Color.red);
+            delete.setForeground(Color.white);
             delete.setBounds(380, 30, 100, 30);
             
             //creating the form to fill in the students details
@@ -150,9 +167,11 @@ public class Students extends JFrame {
             submit = new JButton("Submit");
             submit.setBounds(100, 210, 100, 30);
             submit.setBackground(Color.green);
+            submit.setForeground(Color.white);
             cancel = new JButton("Cancel");
             cancel.setBounds(260, 210, 100, 30);
             cancel.setBackground(Color.red);
+            cancel.setForeground(Color.white);
             //adding components into studentsDetails panel
             studentsDetails.add(fNameLabel);
             studentsDetails.add(fName);
@@ -195,10 +214,15 @@ public class Students extends JFrame {
             add.addActionListener(new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    
                     tablePanel.setVisible(false);
+                    add.setVisible(false);
+                    edit.setVisible(false);
+                    delete.setVisible(false);
                     try {
                         studentsDetails.remove(submit2);
                         studentsDetails.add(submit);
+                        
                         
                     } catch(Exception ex) {
                         studentsDetails.add(submit);
@@ -280,7 +304,11 @@ public class Students extends JFrame {
                         JOptionPane.showMessageDialog(null, "Can not add default values, Please fill in the form!");
                         tablePanel.setVisible(false);
                         studentsDetails.setVisible(true);
+                        
                     } else {
+                        add.setVisible(true);
+                        edit.setVisible(true);
+                        delete.setVisible(true);
                         rowData[0] = fName.getText();
                         rowData[1] = lName.getText();
                         rowData[2] = sex.getSelectedItem();
@@ -292,12 +320,16 @@ public class Students extends JFrame {
                     }  
                 }
             });
+            
             //adding action listener to the cancel button
             cancel.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
                 tablePanel.setVisible(true);
                 studentsDetails.setVisible(false);
+                add.setVisible(true);
+                edit.setVisible(true);
+                delete.setVisible(true);
             }
             
             });
@@ -305,7 +337,11 @@ public class Students extends JFrame {
             edit.addActionListener(new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                   
                     try {
+                        add.setVisible(false);
+                        edit.setVisible(false);
+                        delete.setVisible(false);
                         submit2 = new JButton("Submit");
                         int i = table.getSelectedRow();
                         fName.setText(model.getValueAt(i, 0).toString());
@@ -324,6 +360,9 @@ public class Students extends JFrame {
                     } catch(Exception exd) {
                         System.out.println("No Record selected");
                         JOptionPane.showMessageDialog(null, "Please Select a Record to Edit.");
+                        add.setVisible(true);
+                        edit.setVisible(true);
+                        delete.setVisible(true);
                     }
                     
                     submit2.addActionListener(new ActionListener() {
@@ -331,11 +370,15 @@ public class Students extends JFrame {
                         public void actionPerformed(ActionEvent e) {
                             int i = table.getSelectedRow();
                             if (i >= 0) {
+                                add.setVisible(true);
+                                edit.setVisible(true);
+                                delete.setVisible(true);
                                 model.setValueAt(fName.getText(), i, 0);
                                 model.setValueAt(lName.getText(), i, 1);
                                 model.setValueAt(sex.getSelectedItem(), i, 2);
                                 model.setValueAt(course.getText(), i, 3);
                                 model.setValueAt(dob.getDate(), i, 4);
+                               
                                 tablePanel.setVisible(true);
                                 studentsDetails.setVisible(false);
                             } else {
@@ -381,6 +424,8 @@ public class Students extends JFrame {
         this.add(tabs);
         this.add(footerPanel,BorderLayout.SOUTH);
         this.setVisible(true);
+        
+        
     }
     
     private static void setLookAndFeel() {
