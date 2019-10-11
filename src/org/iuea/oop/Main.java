@@ -10,6 +10,7 @@ public class Main {
     public static void main(String[] args) {
             //Students s = new Students();
         LoginView lv = new LoginView();
+        Students s;
         lv.login.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -22,6 +23,16 @@ public class Main {
                     lv.password.setText("");
                     Students s = new Students();
                     lv.dispose();
+                    s.item5.addActionListener(new ActionListener(){
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                        lv.setVisible(true);
+                        s.setVisible(false);
+                    }
+        
+        
+                    });
+                    
                 } else {
                     JOptionPane.showMessageDialog(null, "Username and password do not match");
                     lv.userName.setText("");
@@ -29,5 +40,6 @@ public class Main {
                 }
             }  
         });
+        
     }
 }
