@@ -198,6 +198,14 @@ public class Students extends JFrame {
             model.setColumnIdentifiers(columns);
             table.setModel(model);
             rowData = new Object[5];
+            
+            //adding initial data to the table
+            rowData[0] = "Janz";
+            rowData[1] = "Emma";
+            rowData[2] = "MALE";
+            rowData[3] = "comp Sci";
+            rowData[4] = new Date();
+            model.addRow(rowData);
             //scrollPane to hold the table
             JScrollPane scrollPane = new JScrollPane();
             scrollPane.setBounds(70, 60, 300, 45);
