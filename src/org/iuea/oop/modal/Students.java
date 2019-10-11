@@ -1,6 +1,5 @@
 package org.iuea.oop.modal;
 
-import com.sun.glass.events.KeyEvent;
 import com.toedter.calendar.JDateChooser;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -11,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
@@ -198,6 +198,14 @@ public class Students extends JFrame {
             model.setColumnIdentifiers(columns);
             table.setModel(model);
             rowData = new Object[5];
+            
+            //adding initial data to the table
+            rowData[0] = "Janz";
+            rowData[1] = "Emma";
+            rowData[2] = "MALE";
+            rowData[3] = "comp Sci";
+            rowData[4] = new Date();
+            model.addRow(rowData);
             //scrollPane to hold the table
             JScrollPane scrollPane = new JScrollPane();
             scrollPane.setBounds(70, 60, 300, 45);
