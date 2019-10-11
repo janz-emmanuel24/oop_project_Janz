@@ -13,6 +13,7 @@
 
 ## General info
 This project is a simple student login system created with java.
+Download jcalendar from https://toedter.com/jcalendar/
 
 ## Packages 
 #### modal
